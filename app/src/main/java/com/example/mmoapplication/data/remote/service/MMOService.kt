@@ -6,6 +6,6 @@ import retrofit2.http.GET
 
 interface MMOService {
 
-    @GET(URL.END_POINT_GAMES)
+    @GET("/api1/games")
     suspend fun getMMOGameList(): MMOResponse
 }
