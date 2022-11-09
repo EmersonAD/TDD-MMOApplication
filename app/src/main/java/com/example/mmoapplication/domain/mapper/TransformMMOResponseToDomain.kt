@@ -12,7 +12,8 @@ object TransformMMOResponseToDomain {
                 genre = mmoGame.genre,
                 platform = mmoGame.platform,
                 shortDescription = mmoGame.shortDescription,
-                thumbnail = mmoGame.thumbnail
+                thumbnail = mmoGame.thumbnail,
+                website = mmoGame.gameUrl
             )
         }
     }

@@ -1,10 +1,12 @@
 package com.example.mmoapplication.presentation.home.fragment
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import com.example.mmoapplication.data.core.Status
 import com.example.mmoapplication.data.model.MMODomain
@@ -62,7 +64,9 @@ class HomeFragment : Fragment() {
     }
 
     private fun setRecycler(list: List<MMODomain>) {
-        mAdapter = MMOAdapter(list)
+        mAdapter = MMOAdapter(list) { website ->
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(website)))
+        }
         binding.rvGameList.apply {
             adapter = mAdapter
             setHasFixedSize(true)

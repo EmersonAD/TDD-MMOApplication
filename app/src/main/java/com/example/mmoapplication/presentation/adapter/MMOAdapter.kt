@@ -5,17 +5,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.example.mmoapplication.R
 import com.example.mmoapplication.data.model.MMODomain
 import com.example.mmoapplication.databinding.GameCardBinding
 
-class MMOAdapter(private val games: List<MMODomain>) :
+class MMOAdapter(
+    private val games: List<MMODomain>,
+    private val onClick: (website: String) -> Unit
+) :
     RecyclerView.Adapter<MMOAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view = LayoutInflater.from(parent.context)
         val binding = GameCardBinding.inflate(view, parent, false)
-        return MyViewHolder(binding)
+        return MyViewHolder(binding, onClick)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
@@ -25,25 +27,44 @@ class MMOAdapter(private val games: List<MMODomain>) :
 
     override fun getItemCount(): Int = games.count()
 
-    inner class MyViewHolder(private val binding: GameCardBinding) :
+    inner class MyViewHolder(
+        private val binding: GameCardBinding,
+        private val onClick: (website: String) -> Unit
+    ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bindView(mmo: MMODomain) {
             binding.apply {
-                tvGameTitle.text = mmo.title
-                tvGameDescription.text = mmo.shortDescription
-                tvGameGender.text = mmo.genre
-                tvGamePlataform.text = mmo.platform
-                ivGameBanner.load(mmo.thumbnail)
-                imgBtnExpand.setOnClickListener {
-                    if (containerExpandable.visibility == View.GONE){
-                        containerExpandable.visibility = View.VISIBLE
-                        imgBtnExpand.setImageResource(R.drawable.ic_expand_less)
-                    } else {
-                        containerExpandable.visibility = View.GONE
-                        imgBtnExpand.setImageResource(R.drawable.ic_expand_more)
-                    }
+                settingUpCardInformation(mmo)
+                btnGameSite.setOnClickListener {
+                    onClick.invoke(mmo.website)
+                }
+                onClickReadMore()
+            }
+        }
+
+        private fun GameCardBinding.settingUpCardInformation(mmo: MMODomain) {
+            tvGameTitle.text = mmo.title
+            tvGameDescription.text = mmo.shortDescription
+            tvGameGender.text = mmo.genre
+            tvGamePlataform.text = mmo.platform
+            ivGameBanner.load(mmo.thumbnail)
+        }
+
+        private fun GameCardBinding.onClickReadMore() {
+            imgBtnExpand.setOnClickListener {
+                if (containerExpandable.visibility == View.GONE) {
+                    containerExpandable.visibility = View.VISIBLE
+                    imgBtnExpand.text = less
+                } else {
+                    containerExpandable.visibility = View.GONE
+                    imgBtnExpand.text = learnMore
                 }
             }
         }
+    }
+
+    companion object {
+        private const val less = "Less"
+        private const val learnMore = "Learn more"
     }
 }
