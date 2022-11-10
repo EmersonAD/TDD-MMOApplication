@@ -5,7 +5,7 @@ import com.example.mmoapplication.data.model.MMOResponseItem
 
 object TransformMMOResponseToDomain {
 
-    operator fun invoke(response: List<MMOResponseItem>): List<MMODomain> {
+    fun init(response: List<MMOResponseItem>): List<MMODomain> {
         return response.map { mmoGame ->
             MMODomain(
                 title = mmoGame.title,
