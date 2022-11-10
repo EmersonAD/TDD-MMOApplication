@@ -10,10 +10,8 @@ import io.mockk.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.*
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import java.io.IOException
 
 @ExperimentalCoroutinesApi
 internal class HomeViewModelTest {
@@ -39,7 +37,7 @@ internal class HomeViewModelTest {
         homeViewModel.mmoResponse.observeForever(stateObserver)
 
         coEvery {
-            getAllMMOGamesUseCase.invoke()
+            getAllMMOGamesUseCase.getGames()
         } returns domainList
 
         homeViewModel.getGamesList()
@@ -57,7 +55,7 @@ internal class HomeViewModelTest {
         homeViewModel.mmoResponse.observeForever(stateObserver)
 
         coEvery {
-            getAllMMOGamesUseCase.invoke()
+            getAllMMOGamesUseCase.getGames()
         } throws IOException("Error")
 
         homeViewModel.getGamesList()
