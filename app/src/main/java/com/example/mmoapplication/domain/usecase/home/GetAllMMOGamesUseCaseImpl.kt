@@ -5,12 +5,13 @@ import com.example.mmoapplication.domain.mapper.TransformMMOResponseToDomain
 import com.example.mmoapplication.domain.repository.MMORepository
 
 class GetAllMMOGamesUseCaseImpl(private val repository: MMORepository) : GetAllMMOGamesUseCase {
-    override suspend fun invoke(): List<MMODomain> {
-        return if (repository.getAllGames().isNotEmpty()) {
-            TransformMMOResponseToDomain(repository.getAllGames())
-        } else {
-            emptyList()
-            //TODO("MOCK OR CACHE IN FUTURE")
+    override suspend fun getGames(): List<MMODomain> {
+        try {
+            repository.getAllGames().let { listOfGames ->
+                return TransformMMOResponseToDomain.init(listOfGames)
+            }
+        } catch (e: Exception) {
+            throw IllegalArgumentException("Api response on failure")
         }
     }
 }

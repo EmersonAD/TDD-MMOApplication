@@ -25,7 +25,7 @@ class HomeViewModel(
             try {
                 _mmoResponse.value = State.onLoading(true)
                 withContext(ioDispatcher) {
-                    getAllMMOGamesUseCase.invoke()
+                    getAllMMOGamesUseCase.getGames()
                 }.let { gameList ->
                     _mmoResponse.value = State.onSuccess(gameList)
                     _mmoResponse.value = State.onLoading(false)
