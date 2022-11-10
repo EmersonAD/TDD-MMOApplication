@@ -2,4 +2,5 @@
 <resources>
     <string name="platform">Plataforma:</string>
     <string name="gender">Genero:</string>
+    <string name="button">button</string>
 </resources>

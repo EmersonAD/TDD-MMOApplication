@@ -9,5 +9,6 @@ data class MMODomain(
     var genre: String,
     var platform: String,
     var shortDescription: String,
-    var thumbnail: String
+    var thumbnail: String,
+    var website: String
 ) : Parcelable
