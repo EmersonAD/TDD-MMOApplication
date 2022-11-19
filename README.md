@@ -4,7 +4,7 @@
 MMO Application
 </h1>
 <!-- Subtitle/Description -->
-<h4>Study Application (TDD)</h4>
+<h4>Application to training unit test(TDD)</h4>
 </div>
 
 ---
