@@ -6,12 +6,16 @@ import com.example.mmoapplication.domain.repository.MMORepository
 
 class GetAllMMOGamesUseCaseImpl(private val repository: MMORepository) : GetAllMMOGamesUseCase {
     override suspend fun getGames(): List<MMODomain> {
-        try {
-            repository.getAllGames().let { listOfGames ->
-                return TransformMMOResponseToDomain.init(listOfGames)
+        repository.getAllGames().body()?.let { gamesList ->
+
+            return when (repository.getAllGames().code()) {
+                200 -> TransformMMOResponseToDomain(gamesList)
+                204 -> throw Exception("No content")
+                in 400..500 -> throw Exception()
+                else -> throw Exception()
             }
-        } catch (e: Exception) {
-            throw IllegalArgumentException("Api response on failure")
-        }
+
+        } ?: throw Exception("Empty body")
     }
+
 }
