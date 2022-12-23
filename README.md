@@ -12,7 +12,7 @@ MMO Application
 ### Technologies
 - [Kotlin](https://kotlinlang.org) - Language
 - [Android](https://developer.android.com) - Plataform
-- [TDD](https://developer.android.com/training/testing/fundamentals) - Unit Tests
+- [TDD](https://developer.android.com/training/testing/fundamentals) - Unit Tests with MockK
 - [View Binding](https://developer.android.com/topic/libraries/view-binding?hl=pt-br)
 - [State](https://refactoring.guru/design-patterns/state) - Design Pattern
 - [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) - Architectural components
